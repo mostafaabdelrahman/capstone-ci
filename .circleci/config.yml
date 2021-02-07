@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  anchore-engine: anchore/anchore-engine@1.0.0
+
 jobs:
   build:
     docker:
@@ -20,7 +23,7 @@ jobs:
       - run:
           name: install dependencies
           command: |
-            apt-get -y update && apt-get -y upgrade
+            # apt-get -y update && apt-get -y upgrade
             apt-get install -y sudo
             python3 -m venv venv
             . venv/bin/activate
@@ -43,3 +46,7 @@ workflows:
   project04-workflow:
     jobs:
       - build
+      - anchore/image_scan:
+          requires: [build]
+          image_name: anchore/anchore-engine:latest
+          timeout: '300'
