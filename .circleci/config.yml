@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  anchore-engine: anchore/anchore-engine@1.0.0
+  anchore-engine: anchore/anchore-engine@1.8.4
 
 jobs:
   build:
@@ -43,7 +43,7 @@ jobs:
             make lint 
 
 workflows:
-  project04-workflow:
+  capstone-ci-workflow:
     jobs:
       - build
       - anchore/image_scan:
