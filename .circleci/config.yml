@@ -4,6 +4,6 @@ orbs:
 workflows:
   scan_image:
     jobs:
-      - anchore/image_scan:
+      - anchore-engine/image_scan:
           image_name: anchore/anchore-engine:latest
           timeout: '300'
