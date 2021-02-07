@@ -49,4 +49,4 @@ workflows:
       - anchore/image_scan:
           requires: [build]
           image_name: anchore/anchore-engine:latest
-          timeout: '300'
+          timeout: '100'
