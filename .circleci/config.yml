@@ -42,10 +42,17 @@ jobs:
             . venv/bin/activate
             make lint
 
+  scan-docker:
+    executor: anchore/anchore_engine
+    steps:
       - anchore/image_scan:
           image_name: anchore/anchore-engine:latest
           timeout: '300'
+
 workflows:
   capstone-ci-workflow:
     jobs:
       - build
+      - scan-docker:
+          requires: [build]
+          
