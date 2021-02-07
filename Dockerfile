@@ -15,6 +15,8 @@ COPY . app.py /app/
 #     pip install --upgrade pip &&\
 #     pip install --trusted-host pypi.python.org -r requirements.txt
 
+RUN apt update -y && apt upgrade -y
+
 RUN pip install --upgrade pip &&\
     pip install --trusted-host pypi.python.org -r requirements.txt
 
