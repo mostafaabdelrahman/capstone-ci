@@ -5,6 +5,7 @@ jobs:
   local_image_scan:
     executor: anchore/anchore_engine
     steps:
+      - setup_remote_docker
       - checkout
       - run:
           name: build container
