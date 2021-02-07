@@ -40,13 +40,12 @@ jobs:
           name: run lint
           command: |
             . venv/bin/activate
-            make lint 
+            make lint
 
+      - anchore/image_scan:
+          image_name: anchore/anchore-engine:latest
+          timeout: '300'
 workflows:
   capstone-ci-workflow:
     jobs:
       - build
-      - anchore/image_scan:
-          requires: [build]
-          image_name: anchore/anchore-engine:latest
-          timeout: '100'
