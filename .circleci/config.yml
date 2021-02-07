@@ -13,7 +13,10 @@ jobs:
           image_name: ${CIRCLE_PROJECT_REPONAME}
           timeout: '500'
           policy_failure: True
-
+      - anchore/parse_reports
+      - store_artifacts:
+          path: anchore-reports
+          
 workflows:
   capstone-ci-workflow:
     jobs:
