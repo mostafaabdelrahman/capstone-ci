@@ -1,0 +1,8 @@
+version: 2.1
+orbs:
+  anchore-engine: anchore/anchore-engine@1.8.4
+workflows:
+  scan_image:
+    jobs:
+      - anchore-engine/image_scan:
+          image_name: 'docker.io/anchore/anchore-engine:latest'
