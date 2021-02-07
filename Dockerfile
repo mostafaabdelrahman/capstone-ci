@@ -15,7 +15,8 @@ COPY . app.py /app/
 #     pip install --upgrade pip &&\
 #     pip install --trusted-host pypi.python.org -r requirements.txt
 
-RUN apt-get update -y && apt-get upgrade -y
+RUN export DEBIAN_FRONTEND=noninteractive && \
+    apt-get update -y && apt-get upgrade -y
 
 RUN pip install --upgrade pip &&\
     pip install --trusted-host pypi.python.org -r requirements.txt
