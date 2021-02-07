@@ -1,6 +1,7 @@
 #FROM python:3.7.3-stretch
 # FROM python:alpine
-FROM python:3.7.9-stretch
+#FROM python:3.7.9-stretch
+FROM ubuntu:20.04
 
 LABEL maintainer="mostafa.ahmad@gmail.com"
 
@@ -15,8 +16,7 @@ COPY . app.py /app/
 #     pip install --upgrade pip &&\
 #     pip install --trusted-host pypi.python.org -r requirements.txt
 
-RUN export DEBIAN_FRONTEND=noninteractive && \
-    apt-get update -y && apt-get upgrade -y
+RUN apt -y update && apt -y upgrade && apt install python3
 
 RUN pip install --upgrade pip &&\
     pip install --trusted-host pypi.python.org -r requirements.txt
