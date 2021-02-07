@@ -12,7 +12,7 @@ jobs:
       - anchore/analyze_local_image:
           image_name: ${CIRCLE_PROJECT_REPONAME}
           timeout: '500'
-          analysis_fail: True
+          policy_failure: True
 
 workflows:
   capstone-ci-workflow:
