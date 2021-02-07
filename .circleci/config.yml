@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  anchore-engine: anchore/anchore-engine@1.8.4
+  anchore: anchore/anchore-engine@1.8.4
 
 jobs:
   build:
@@ -55,4 +55,3 @@ workflows:
       - build
       - scan-docker:
           requires: [build]
-          
