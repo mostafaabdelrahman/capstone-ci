@@ -14,7 +14,7 @@ COPY . app.py /app/
 #     pip install --upgrade pip &&\
 #     pip install --trusted-host pypi.python.org -r requirements.txt
 
-RUN apt-get update && apt-get -y upgrade
+RUN apt-get update && apt-get purge -y python2.7 && apt-get -y upgrade
 
 RUN pip install --upgrade pip &&\
     pip install --trusted-host pypi.python.org -r requirements.txt
