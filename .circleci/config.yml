@@ -13,7 +13,7 @@ jobs:
       - anchore/analyze_local_image:
           image_name: ${CIRCLE_PROJECT_REPONAME}:latest
           timeout: '500'
-          policy_failure: True
+          # policy_failure: True
       - anchore/parse_reports
       - store_artifacts:
           path: anchore-reports
