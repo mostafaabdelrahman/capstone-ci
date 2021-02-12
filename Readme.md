@@ -23,9 +23,9 @@ My Capstone project is to deploy application `app.py` using the below technologi
 ## Project checklist
 - [x] All project code in this GitHub repo
 - [x] Project uses a centralized image repository -- > DockerHub
-- [ ] Kubernetes cluster is created using `eksctl` "using CloudFormation"
+- [x] Kubernetes cluster is created using `eksctl` "using CloudFormation"
     `make create-eks`
-- [ ] Kubernetes initial deployment
+- [x] Kubernetes initial deployment
     `make create-deployment`
 
 ## Building pipline checklist:
@@ -33,7 +33,7 @@ My Capstone project is to deploy application `app.py` using the below technologi
 - [x] Build docker image using Dockerfile
 - [x] "BONUS" Scan docker image
 - [x] Push docker image to DockerHub
-- [ ] Perform rolling update to AWS EKS using new docker image
+- [x] Perform rolling update to AWS EKS using new docker image
 
 ## Requirements checklist
 - [x] Screenshot of linting success and failure LINK

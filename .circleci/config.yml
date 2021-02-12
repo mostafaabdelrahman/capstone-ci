@@ -37,15 +37,18 @@ jobs:
 
     docker:
     - image: docker:stable
+
     # Specify docker tag and version
     environment:
       IMAGE_NAME: mostafaabdelrahman/udacity-capstone
-      IMAGE_TAG: v1
+      IMAGE_TAG: v2
 
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - imageinfo-${CIRCLE_WORKFLOW_ID:0:7}
       - setup_remote_docker
-      - checkout
       - run:
           name: Build image
           command: docker build -t "${IMAGE_NAME}:ci" .
@@ -60,12 +63,47 @@ jobs:
             echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
             docker tag "${IMAGE_NAME}:ci" "${IMAGE_NAME}:${IMAGE_TAG}"
             docker push "${IMAGE_NAME}:${IMAGE_TAG}"
+            echo "${IMAGE_NAME}:${IMAGE_TAG}" > imageinfo.txt
       - store_artifacts:
           path: anchore-reports/
+      - save_cache:
+          paths: [imageinfo.txt]
+          key: imageinfo-${CIRCLE_WORKFLOW_ID:0:7}
 
+  rolling_update:
+    docker:
+      - image: amazon/aws-cli
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - imageinfo-${CIRCLE_WORKFLOW_ID:0:7}
+      - run:
+          name: Install kubectl
+          command: |
+            curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+            sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+            kubectl version --client
+      - run:
+          name: Get EKS kubeconfig
+          command: |
+            aws eks --region us-west-2 update-kubeconfig --name udacity-capstone
+            kubectl get pod
+      - run:
+          name: Rolling update
+          command: |
+            DOCKER_IMAGE=$(cat imageinfo-${CIRCLE_WORKFLOW_ID:0:7})
+            aws eks --region us-west-2 update-kubeconfig --name udacity-capstone
+            kubectl get deploy  -l app=capstone-deployment -o wide
+            kubectl set image deploy/capstone-deployment capstone-deployment="$DOCKER_IMAGE" --record
+            kubectl rollout status deploy/capstone-deployment
+            kubectl get deploy  -l app=capstone-deployment -o wide
+            
 workflows:
   capstone-workflow:
     jobs:
       - lint_code_dockerfile
       - build_scan_push_docker_image:
           requires: [lint_code_dockerfile]
+      - rolling_update:
+          requires: [lint_code_dockerfile,build_scan_push_docker_image]
