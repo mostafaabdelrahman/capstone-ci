@@ -1,25 +1,23 @@
 version: 2.1
 orbs:
   anchore: anchore/anchore-engine@1.8.4
+
 jobs:
-  local_image_scan:
+  # Scan Docker image
+  scan_docker_image:
     executor: anchore/anchore_engine
     steps:
       - setup_remote_docker
       - checkout
       - run:
           name: build container
-          command: docker build -t ${CIRCLE_PROJECT_REPONAME}:latest .
+          command: docker build -t ${CIRCLE_PROJECT_REPONAME}:ci .
       - anchore/analyze_local_image:
-          image_name: ${CIRCLE_PROJECT_REPONAME}:latest
+          image_name: ${CIRCLE_PROJECT_REPONAME}:ci
           timeout: '500'
-          policy_failure: True
-      - anchore/parse_reports
-      - store_artifacts:
-          path: anchore-reports
           
 workflows:
   capstone-ci-workflow:
     jobs:
-      - local_image_scan
+      - scan_docker_image
 
