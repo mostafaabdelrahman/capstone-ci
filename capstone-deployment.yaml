@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: capstone-deployment
+  labels:
+    app: capstone-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: capstone-deployment
+  template:
+    metadata:
+      labels:
+        app: capstone-deployment
+    spec:
+      containers:
+      - name: capstone-deployment
+        image: mostafaabdelrahman/udacity-capstone:v1
+        ports:
+        - containerPort: 80

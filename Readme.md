@@ -24,7 +24,7 @@ My Capstone project is to deploy application `app.py` using the below technologi
 ## Project checklist
 - [x] All project code in this GitHub repo
 - [x] Project uses a centralized image repository -- > DockerHub
-- [ ] Kubernetes cluster is created using ekstool "using CloudFormation" LINK
+- [ ] Kubernetes cluster is created using `eksctl` "using CloudFormation" LINK
 
 ## Building pipline checklist:
 - [x] Linting code and docker file
@@ -34,7 +34,7 @@ My Capstone project is to deploy application `app.py` using the below technologi
 - [ ] Perform rolling update to AWS EKS using new docker image
 
 ## Requirements checklist
-- [ ] Screenshot of linting success and failure LINK
+- [x] Screenshot of linting success and failure LINK
 - [ ] Screenshot of Circle CI pipeline showing deployment LINK
 - [ ] Screenshot of AWS EKS rolling update LINK
 

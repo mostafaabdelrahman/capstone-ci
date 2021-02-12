@@ -11,4 +11,10 @@ lint:
 	hadolint --ignore DL3013 Dockerfile 
 	pylint --disable=R,C,W1203 app.py
 
-all: install-requirements install-hadolint lint
+create-eks:
+	eksctl create cluster --name udacity-capstone --region us-west-2  --zones=us-west-2a,us-west-2b,us-west-2c \
+		--nodegroup-name workers --node-type t2.micro --nodes 3 --nodes-min 3 --nodes-max 3 \
+		--ssh-access --ssh-public-key "webapp-key" --managed
+		
+create-deployment:
+	./run_kubernetes_deployment.sh
