@@ -34,7 +34,7 @@ jobs:
             . venv/bin/activate
             make lint
 
-  build-scan-push-docker-image:
+  build_scan_push_docker_image:
 
     docker:
     - image: docker:stable
