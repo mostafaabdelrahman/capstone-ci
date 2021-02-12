@@ -15,7 +15,6 @@ My Capstone project is to deploy application `app.py` using the below technologi
 * Python
 * Docker
 * Kubernetes
-* Ansible
 * Makefile
 * Anchore for docker vulnerability scan
 * hadolint for Dockerfile linting
@@ -24,7 +23,10 @@ My Capstone project is to deploy application `app.py` using the below technologi
 ## Project checklist
 - [x] All project code in this GitHub repo
 - [x] Project uses a centralized image repository -- > DockerHub
-- [ ] Kubernetes cluster is created using `eksctl` "using CloudFormation" LINK
+- [ ] Kubernetes cluster is created using `eksctl` "using CloudFormation"
+    `make create-eks`
+- [ ] Kubernetes initial deployment
+    `make create-deployment`
 
 ## Building pipline checklist:
 - [x] Linting code and docker file
