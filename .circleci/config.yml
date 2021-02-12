@@ -1,23 +1,38 @@
 version: 2.1
-orbs:
-  anchore: anchore/anchore-engine@1.8.4
 
 jobs:
-  # Scan Docker image
-  scan_docker_image:
-    executor: anchore/anchore_engine
+
+  build-scan-push-docker-image:
+
+    docker:
+    - image: docker:stable
+    environment:
+      IMAGE_NAME: mostafaabdelrahman/udacity-capstone
+      IMAGE_TAG: v1
+
     steps:
+      - checkout
       - setup_remote_docker
       - checkout
       - run:
-          name: build container
-          command: docker build -t ${CIRCLE_PROJECT_REPONAME}:ci .
-      - anchore/analyze_local_image:
-          image_name: ${CIRCLE_PROJECT_REPONAME}:ci
-          timeout: '500'
-          
+          name: Build image
+          command: docker build -t "${IMAGE_NAME}:ci" .
+      - run:
+          name: Scan image
+          command: |
+            apk add curl bash
+            curl -s https://ci-tools.anchore.io/inline_scan-latest | bash -s -- -r "${IMAGE_NAME}:ci"
+      # - run:
+      #     name: Push to DockerHub
+      #     command: |
+      #       echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+      #       docker tag "${IMAGE_NAME}:ci" "${IMAGE_NAME}:${IMAGE_TAG}"
+      #       docker push "${IMAGE_NAME}:${IMAGE_TAG}"
+      - store_artifacts:
+          path: anchore-reports/
+
 workflows:
   capstone-ci-workflow:
     jobs:
-      - scan_docker_image
-
+      # - linting-job
+      - build-scan-push-docker-image
