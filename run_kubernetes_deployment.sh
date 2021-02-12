@@ -7,4 +7,4 @@ kubectl apply -f capstone-deployment.yaml
 kubectl get pods
 
 # Expose service
-kubectl expose deployment/capstone-deployment--port 8080 --target-port 80
+kubectl expose deployment/capstone-deployment --port 8080 --target-port 80
