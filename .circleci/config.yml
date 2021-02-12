@@ -79,9 +79,6 @@ jobs:
 
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - imageinfo-${CIRCLE_WORKFLOW_ID:0:7}
       - run:
           name: Install kubectl and other dependencies
           command: |
@@ -93,6 +90,9 @@ jobs:
           name: Get EKS kubeconfig
           command: |
             aws eks --region us-west-2 update-kubeconfig --name udacity-capstone
+      - restore_cache:
+          keys:
+            - imageinfo-${CIRCLE_WORKFLOW_ID:0:7}
       - run:
           name: Rolling update
           command: |
