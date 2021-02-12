@@ -5,7 +5,9 @@ jobs:
 
     docker:
       - image: python:3.7.3-stretch
+
     working_directory: ~/repo
+
     steps:
       - checkout
       # Download and cache dependencies
@@ -71,9 +73,11 @@ jobs:
           key: imageinfo-${CIRCLE_WORKFLOW_ID:0:7}
 
   rolling_update:
+
     docker:
       - image: amazon/aws-cli
-    steps:
+
+      steps:
       - checkout
       - restore_cache:
           keys:
@@ -89,24 +93,21 @@ jobs:
           name: Get EKS kubeconfig
           command: |
             aws eks --region us-west-2 update-kubeconfig --name udacity-capstone
-            kubectl get pod
       - run:
           name: Rolling update
           command: |
-            # DOCKER_IMAGE=$(cat imageinfo-${CIRCLE_WORKFLOW_ID:0:7})
-            DOCKER_IMAGE=mostafaabdelrahman/udacity-capstone:v2
+            DOCKER_IMAGE=$(cat imageinfo-${CIRCLE_WORKFLOW_ID:0:7})
             aws eks --region us-west-2 update-kubeconfig --name udacity-capstone
-            kubectl get deploy  -l app=capstone-deployment -o wide
+            kubectl get deploy -l app=capstone-deployment -o wide
             kubectl set image deploy/capstone-deployment capstone-deployment="$DOCKER_IMAGE" --record
             kubectl rollout status deploy/capstone-deployment
-            kubectl get deploy  -l app=capstone-deployment -o wide
+            kubectl get deploy -l app=capstone-deployment -o wide
 
 workflows:
   capstone-workflow:
     jobs:
-      # - lint_code_dockerfile
-      # - build_scan_push_docker_image:
-      #     requires: [lint_code_dockerfile]
-      # - rolling_update:
-      #     requires: [build_scan_push_docker_image]
-      - rolling_update
+      - lint_code_dockerfile
+      - build_scan_push_docker_image:
+          requires: [lint_code_dockerfile]
+      - rolling_update:
+          requires: [build_scan_push_docker_image]
