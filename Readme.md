@@ -56,12 +56,12 @@ My Capstone project is to deploy application `app.py` using the below technologi
 - [x] Screenshot of linting success and failure:
     - [x] [linting success](screenshots/lint-success.JPG)
     - [x] [linting failure](screenshots/lint-failure.JPG)
-- [ ] Screenshots of Circle CI pipeline showing deployment:
-    - [ ] [Full Circle CI pipeline workflow](screenshots/capstone-circleci.JPG)
-    - [ ] [Deployment pipeline steps](screenshots/capstone-deploy-pipline.JPG)
-- [ ] Screenshots of AWS EKS rolling update LINK
+- [x] Screenshots of Circle CI pipeline showing deployment:
+    - [x] [Full Circle CI pipeline workflow](screenshots/capstone-circleci.JPG)
+    - [x] [Deployment pipeline steps](screenshots/capstone-deploy-pipline.JPG)
+- [x] Screenshots of AWS EKS rolling update LINK
     - [x] [EKS deployment before rolling update](screenshots/eks-before-rolling.JPG)
-    - [ ] [EKS deployment after rolling update](screenshots/eks-after-rolling.JPG)
+    - [x] [EKS deployment after rolling update](screenshots/eks-after-rolling.JPG)
     - [x] [EC2 nodegroup instances](screenshots/eks-ec2-nodegroup.JPG)
 
 ---
