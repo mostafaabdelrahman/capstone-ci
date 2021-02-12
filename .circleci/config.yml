@@ -47,30 +47,27 @@ jobs:
 
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - imageinfo-${CIRCLE_WORKFLOW_ID:0:7}
-      - setup_remote_docker
-      - run:
-          name: Build image
-          command: docker build -t "${IMAGE_NAME}:ci" .
-      - run:
-          name: Scan image
-          command: |
-            apk add curl bash
-            curl -s https://ci-tools.anchore.io/inline_scan-latest | bash -s -- -r "${IMAGE_NAME}:ci"
+      # - setup_remote_docker
+      # - run:
+      #     name: Build image
+      #     command: docker build -t "${IMAGE_NAME}:ci" .
+      # - run:
+      #     name: Scan image
+      #     command: |
+      #       apk add curl bash
+      #       curl -s https://ci-tools.anchore.io/inline_scan-latest | bash -s -- -r "${IMAGE_NAME}:ci"
       - run:
           name: Push to DockerHub
           command: |
-            echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
-            docker tag "${IMAGE_NAME}:ci" "${IMAGE_NAME}:${IMAGE_TAG}"
-            docker push "${IMAGE_NAME}:${IMAGE_TAG}"
-            echo "${IMAGE_NAME}:${IMAGE_TAG}" > imageinfo.txt
-      - store_artifacts:
-          path: anchore-reports/
-      - save_cache:
-          paths: [imageinfo.txt]
-          key: imageinfo-${CIRCLE_WORKFLOW_ID:0:7}
+            # echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+            # docker tag "${IMAGE_NAME}:ci" "${IMAGE_NAME}:${IMAGE_TAG}"
+            # docker push "${IMAGE_NAME}:${IMAGE_TAG}"
+            # Save Docker image name to MemStash.io
+            curl -H "Content-Type: text/plain" \
+              -H "token: imagename-${CIRCLE_WORKFLOW_ID}" --request PUT \
+              --data "${IMAGE_NAME}:${IMAGE_TAG}" https://api.memstash.io/values/imagename
+      # - store_artifacts:
+      #     path: anchore-reports/
 
   rolling_update:
 
@@ -82,7 +79,7 @@ jobs:
       - run:
           name: Install kubectl and other dependencies
           command: |
-            yum -y install sudo tar
+            yum -y install sudo tar curl
             curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
             sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
             kubectl version --client
@@ -90,18 +87,16 @@ jobs:
           name: Get EKS kubeconfig
           command: |
             aws eks --region us-west-2 update-kubeconfig --name udacity-capstone
-      - restore_cache:
-          keys:
-            - imageinfo-${CIRCLE_WORKFLOW_ID:0:7}
       - run:
           name: Rolling update
           command: |
-            DOCKER_IMAGE=$(cat imageinfo.txt)
-            aws eks --region us-west-2 update-kubeconfig --name udacity-capstone
-            kubectl get deploy -l app=capstone-deployment -o wide
-            kubectl set image deploy/capstone-deployment capstone-deployment="$DOCKER_IMAGE" --record
-            kubectl rollout status deploy/capstone-deployment
-            kubectl get deploy -l app=capstone-deployment -o wide
+            DOCKER_IMAGE=$(curl -H "token: imagename-${CIRCLE_WORKFLOW_ID}" --request GET https://api.memstash.io/values/imagename)
+            echo $DOCKER_IMAGE
+            # aws eks --region us-west-2 update-kubeconfig --name udacity-capstone
+            # kubectl get deploy -l app=capstone-deployment -o wide
+            # kubectl set image deploy/capstone-deployment capstone-deployment="$DOCKER_IMAGE" --record
+            # kubectl rollout status deploy/capstone-deployment
+            # kubectl get deploy -l app=capstone-deployment -o wide
 
 workflows:
   capstone-workflow:
