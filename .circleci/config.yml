@@ -63,6 +63,7 @@ jobs:
             # docker tag "${IMAGE_NAME}:ci" "${IMAGE_NAME}:${IMAGE_TAG}"
             # docker push "${IMAGE_NAME}:${IMAGE_TAG}"
             # Save Docker image name to MemStash.io
+            apk add --no-cache curl
             curl -H "Content-Type: text/plain" \
               -H "token: imagename-${CIRCLE_WORKFLOW_ID}" --request PUT \
               --data "${IMAGE_NAME}:${IMAGE_TAG}" https://api.memstash.io/values/imagename
