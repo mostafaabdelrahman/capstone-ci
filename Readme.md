@@ -37,9 +37,12 @@ My Capstone project is to deploy application `app.py` using the below technologi
 - [x] All project code in this GitHub repo
 - [x] Project uses a centralized image repository "DockerHub"
 - [x] Kubernetes cluster is created using `eksctl` "using CloudFormation"
-    `make create-eks`
+    
+    Run command: `make create-eks`
+
 - [x] Kubernetes initial deployment "version 1"
-    `make create-deployment`
+    
+    Run command: `make create-deployment`
 
 ---
 
