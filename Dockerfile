@@ -14,13 +14,11 @@ RUN apk -U --no-cache upgrade &&\
     pip install --upgrade pip &&\
     pip install --trusted-host pypi.python.org -r requirements.txt
 
-# RUN apt-get update && apt-get -y upgrade
-
-# RUN pip install --upgrade pip &&\
-#     pip install --trusted-host pypi.python.org -r requirements.txt
-
 # Expose port 80    
 EXPOSE 80
 
 # Run app.py at container launch
 CMD ["python","app.py"]
+
+# Addming healthcheck
+HEALTHCHECK CMD curl -f http://localhost/ || exit 1

@@ -22,17 +22,17 @@ jobs:
           command: |
             apk add curl bash
             curl -s https://ci-tools.anchore.io/inline_scan-latest | bash -s -- -r "${IMAGE_NAME}:ci"
-      # - run:
-      #     name: Push to DockerHub
-      #     command: |
-      #       echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
-      #       docker tag "${IMAGE_NAME}:ci" "${IMAGE_NAME}:${IMAGE_TAG}"
-      #       docker push "${IMAGE_NAME}:${IMAGE_TAG}"
+      - run:
+          name: Push to DockerHub
+          command: |
+            echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+            docker tag "${IMAGE_NAME}:ci" "${IMAGE_NAME}:${IMAGE_TAG}"
+            docker push "${IMAGE_NAME}:${IMAGE_TAG}"
       - store_artifacts:
           path: anchore-reports/
 
 workflows:
-  capstone-ci-workflow:
+  capstone-workflow:
     jobs:
       # - linting-job
       - build-scan-push-docker-image
