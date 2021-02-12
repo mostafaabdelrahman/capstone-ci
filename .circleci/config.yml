@@ -98,7 +98,7 @@ jobs:
             kubectl set image deploy/capstone-deployment capstone-deployment="$DOCKER_IMAGE" --record
             kubectl rollout status deploy/capstone-deployment
             kubectl get deploy  -l app=capstone-deployment -o wide
-            
+
 workflows:
   capstone-workflow:
     jobs:
@@ -106,4 +106,4 @@ workflows:
       - build_scan_push_docker_image:
           requires: [lint_code_dockerfile]
       - rolling_update:
-          requires: [lint_code_dockerfile,build_scan_push_docker_image]
+          requires: [build_scan_push_docker_image]
