@@ -4,7 +4,7 @@
 
 </div>
 
-# Udacity Capstone Project
+# Udacity DevOps Capstone Project
 This is the final project "Capstone" for AWS Cloud DevOps Engineer Nanodegree Program.
 This project includes building CI/CD pipeline to deploy dockerized micro service application to Amazon EKS.
 
