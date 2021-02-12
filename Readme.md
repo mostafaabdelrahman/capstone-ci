@@ -60,9 +60,9 @@ My Capstone project is to deploy application `app.py` using the below technologi
     - [ ] [Full Circle CI pipeline workflow](screenshots/capstone-circleci.JPG)
     - [ ] [Deployment pipeline steps](screenshots/capstone-deploy-pipline.JPG)
 - [ ] Screenshots of AWS EKS rolling update LINK
-    - [ ] [EKS deployment before rolling update](screenshots/eks-before-rolling.JPG)
+    - [x] [EKS deployment before rolling update](screenshots/eks-before-rolling.JPG)
     - [ ] [EKS deployment after rolling update](screenshots/eks-after-rolling.JPG)
-    - [ ] [EC2 nodegroup instances](screenshots/eks-ec2-nodegroup.JPG)
+    - [x] [EC2 nodegroup instances](screenshots/eks-ec2-nodegroup.JPG)
 
 ---
 
