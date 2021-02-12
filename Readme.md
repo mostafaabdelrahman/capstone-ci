@@ -1,6 +1,6 @@
 <div align="center">
 
-[![mostafaabdelrahman](https://circleci.com/gh/mostafaabdelrahman/udacity-devops-capstone.svg?style=svg)](https://app.circleci.com/pipelines/gh/mostafaabdelrahman/udacity-devops-capstone)
+Cirle CI status : [![mostafaabdelrahman](https://circleci.com/gh/mostafaabdelrahman/udacity-devops-capstone.svg?style=shield)](https://app.circleci.com/pipelines/gh/mostafaabdelrahman/udacity-devops-capstone)
 
 </div>
 
@@ -57,12 +57,12 @@ My Capstone project is to deploy application `app.py` using the below technologi
     - [x] [linting success](screenshots/lint-success.JPG)
     - [x] [linting failure](screenshots/lint-failure.JPG)
 - [ ] Screenshots of Circle CI pipeline showing deployment:
-    - [ ] [Full Circle CI pipeline workflow](screenshot/capstone-circleci.JPG)
-    - [ ] [Deployment pipeline steps](screenshot/capstone-deploy-pipline.JPG)
+    - [ ] [Full Circle CI pipeline workflow](screenshots/capstone-circleci.JPG)
+    - [ ] [Deployment pipeline steps](screenshots/capstone-deploy-pipline.JPG)
 - [ ] Screenshots of AWS EKS rolling update LINK
-    - [ ] [EKS deployment before rolling update](screenshot/eks-before-rolling.JPG)
-    - [ ] [EKS deployment after rolling update](screenshot/eks-after-rolling.JPG)
-    - [ ] [EC2 nodegroup instances](screenshot/eks-ec2-nodegroup.JPG)
+    - [ ] [EKS deployment before rolling update](screenshots/eks-before-rolling.JPG)
+    - [ ] [EKS deployment after rolling update](screenshots/eks-after-rolling.JPG)
+    - [ ] [EC2 nodegroup instances](screenshots/eks-ec2-nodegroup.JPG)
 
 ---
 

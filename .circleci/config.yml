@@ -96,7 +96,7 @@ jobs:
       - run:
           name: Rolling update
           command: |
-            DOCKER_IMAGE=$(cat imageinfo-${CIRCLE_WORKFLOW_ID:0:7})
+            DOCKER_IMAGE=$(cat imageinfo.txt)
             aws eks --region us-west-2 update-kubeconfig --name udacity-capstone
             kubectl get deploy -l app=capstone-deployment -o wide
             kubectl set image deploy/capstone-deployment capstone-deployment="$DOCKER_IMAGE" --record
