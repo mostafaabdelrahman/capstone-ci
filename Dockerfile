@@ -10,7 +10,7 @@ WORKDIR /app
 COPY . app.py /app/
 
 # Install packages from requirements.txt
-RUN apk -U --no-cache upgrade &&\
+RUN apk -U --no-cache &&\
     pip install --upgrade pip &&\
     pip install --trusted-host pypi.python.org -r requirements.txt
 
