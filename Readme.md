@@ -1,6 +1,6 @@
 <div align="center">
 
-Cirle CI status : [![mostafaabdelrahman](https://circleci.com/gh/mostafaabdelrahman/udacity-devops-capstone.svg?style=shield)](https://app.circleci.com/pipelines/gh/mostafaabdelrahman/udacity-devops-capstone)
+[![mostafaabdelrahman](https://circleci.com/gh/mostafaabdelrahman/udacity-devops-capstone.svg?style=shield)](https://app.circleci.com/pipelines/gh/mostafaabdelrahman/udacity-devops-capstone)
 
 </div>
 
