@@ -77,7 +77,7 @@ jobs:
     docker:
       - image: amazon/aws-cli
 
-      steps:
+    steps:
       - checkout
       - restore_cache:
           keys:

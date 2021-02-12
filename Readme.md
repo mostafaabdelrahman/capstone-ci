@@ -13,10 +13,10 @@ This project includes building CI/CD pipeline to deploy dockerized micro service
 ## Project proposal
 My Capstone project is to deploy application `app.py` using the below technologies:
 
-1- `app.py` is a python application that runs inside docker container
-2- CI/CD pipelines are implemented using CircleCI
-3- Deployment type is: rolling update
-4- Deployment will be done to AWS EKS Kubernetes cluster
+1. `app.py` is a python application that runs inside docker container
+2. CI/CD pipelines are implemented using CircleCI
+3. Deployment type is: rolling update
+4. Deployment will be done to AWS EKS Kubernetes cluster
 
 ---
 
